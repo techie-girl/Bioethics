@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Browse Stories - Bioethics</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{% static "case/styles.css" %}">
+            <!-- Compiled and minified CSS -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+              <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+             <!--Import Google Icon Font-->
+          <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+              <!--Import materialize.css-->
+         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    </head>
+    
+    <body>
+        <header>
+            <nav class="green">
+                <div class="nav-wrapper container">
+                      <a href="#" class="brand-logo">Bioethics Consultation Tool</a>
+                      <ul id="nav-mobile" class="right hide-on-med-and-down">
+                      
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url "twine:index" %}">TWINE</a></li>
+                        {% endif %}
+
+                        <li><a href="">ABOUT US</a></li>
+                        <li><a href="">CONTACT</a></li>
+
+                        {% if user.is_authenticated %}
+                        <li class="green darken-3"><a href="{% url "logout" %}">LOGOUT</a></li>
+                        {% endif %}
+
+                      </ul>
+                </div>
+              </nav>
+        </header>
+        <br>
+        
+        <div class="container" >
+
+            {% for case_group in case_groups %}
+            <div class="row">
+                {% for case in case_group %}
+                    <div class="col s4 m3">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{% static case.category.path %}" title="{{ case.title }}">
+                            </div>
+                            <div class="card-content">
+                                <p>{{ case.title }}</p>
+                            </div>
+                            <div class="card-action">
+                                <p><a href="{{ case.id }}">View Case</a></p>
+                                {% if user.is_authenticated %}
+                                <p><a href="{% url "case:case_edit" case.id %}">Edit Case</a></p>
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            {% if user.is_authenticated %}
+                {% for case in unpublished %}
+                <div class="row">
+                    <div class="col s4 m3">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{% static case.category.path %}" title="{{ case.title }}">
+                            </div>
+                            <div class="card-content">
+                                <p>{{ case.title }} (Unpublished)</p>
+                            </div>
+                            <div class="card-action">
+                                <p><a href="{{ case.id }}">View Case</a></p>
+                                {% if user.is_authenticated %}
+                                <p><a href="{% url "case:case_edit" case.id %}">Edit Case</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+
+
+        <footer class="page-footer green">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <p class="grey-text text-lighten-4">
+                Dalhousie University Departmet of Bioethics:
+                <br>
+                Online Consultation Tool
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2017 Team Bioethics
+            </div>
+          </div>
+        </footer>
+
+            <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+         <script type="text/javascript" src="js/materialize.min.js"></script>
+    
+    </body>
+</html>

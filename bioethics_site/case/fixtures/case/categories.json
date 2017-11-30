@@ -1,0 +1,26 @@
+[
+  {
+    "model": "case.category",
+    "pk": 1,
+    "fields": {
+      "name": "Clinical",
+      "path": "case/CLINICAL.png"
+    }
+  },
+  {
+    "model": "case.category",
+    "pk": 2,
+    "fields": {
+      "name": "Organization",
+      "path": "case/ORG.png"
+    }
+  },
+  {
+    "model": "case.category",
+    "pk": 3,
+    "fields": {
+      "name": "Policy",
+      "path": "case/POLICY.png"
+    }
+  }
+]
